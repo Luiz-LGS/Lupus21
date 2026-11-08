@@ -1,0 +1,99 @@
+GUIA DE COMANDOS GIT – EQUIPE
+
+1. ATUALIZAR O PROJETO
+
+Baixar as últimas alterações do repositório:
+
+git pull origin main
+
+2. VERIFICAR ALTERAÇÕES
+
+Verificar quais arquivos foram modificados:
+
+git status
+
+Visualizar as diferenças nos arquivos:
+
+git diff
+
+3. ADICIONAR ALTERAÇÕES
+
+Adicionar todos os arquivos modificados:
+
+git add .
+
+4. CRIAR COMMIT
+
+Salvar suas alterações com uma mensagem descritiva:
+
+git commit -m "Descrição das alterações"
+
+Exemplos:
+
+git commit -m "Adiciona tela de login"
+
+git commit -m "Corrige validação de cadastro"
+
+git commit -m "Atualiza layout do sistema"
+
+git commit -m "Implementa funcionalidade de pesquisa"
+
+5. ENVIAR ALTERAÇÕES PARA O GITHUB
+
+Enviar seus commits para o repositório:
+
+git push origin main
+
+6. BUSCAR ATUALIZAÇÕES
+
+Buscar atualizações sem aplicá-las ao projeto:
+
+git fetch origin
+
+7. TRABALHAR COM BRANCHES
+
+Criar uma nova branch:
+
+git branch nome-da-branch
+
+Criar e acessar uma nova branch:
+
+git checkout -b nome-da-branch
+
+Listar as branches:
+
+git branch
+
+Trocar de branch:
+
+git checkout main
+
+8. HISTÓRICO DE COMMITS
+
+Visualizar o histórico completo:
+
+git log
+
+Visualizar o histórico resumido:
+
+git log --oneline
+
+FLUXO PADRÃO DE TRABALHO
+
+Sempre que terminar uma alteração, utilize a seguinte sequência:
+
+git pull origin main
+
+git add .
+
+git commit -m "Descrição das alterações"
+
+git push origin main
+
+IMPORTANTE:
+- Sempre atualize o projeto antes de começar a trabalhar.
+- Utilize mensagens de commit claras e objetivas.
+- Não faça commit de arquivos desnecessários.
+- Antes de enviar suas alterações, verifique se está na branch correta.
+- Caso apareçam conflitos, resolva-os antes de continuar.
+- Evite que duas pessoas enviem alterações simultaneamente sem sincronizar o repositório.
