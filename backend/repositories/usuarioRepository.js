@@ -27,6 +27,23 @@ export default class UsuarioRepository {
 
     }
 
+    async cadastrar(entidade){
+        let sql = "insert into tb_usuario (usu_nome, usu_email, usu_senha) values (?,?,?)";
+
+        let valores = [entidade.nome, entidade.email, entidade.senha];
+
+        let idGerado = await this.#banco.ExecutaComandoLastInserted(sql, valores);
+
+        if(idGerado){
+            entidade.id = idGerado;
+            return true;
+        }
+
+        else{
+            return false;
+        }
+    }
+
     async obterPorEmailSenha(email, senha){
 
         let sql = "select * from tb_usuario where usu_email = ? and usu_senha = ?";

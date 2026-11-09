@@ -1,15 +1,10 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nunito } from "next/font/google"
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const nunito = Nunito({ subsets: ['latin'] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import "../public/template/css/sb-admin-2.min.css";
+import "../public/template/css/fontawesome-free/css/all.min.css";
 
 export const metadata = {
   title: "Create Next App",
@@ -18,8 +13,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={nunito.className}>
+      <head>
+        <script src="/template/js/jquery.min.js" ></script>
+        <script src="/template/js/bootstrap.bundle.min.js"></script>
+        <script src="/template/js/sb-admin-2.min.js"></script>
+      </head>
+      <body>
+        {children}
+      </body>
     </html>
   );
 }

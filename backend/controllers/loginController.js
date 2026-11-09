@@ -13,13 +13,13 @@ export default class LoginController {
         try{
             let {email, senha} = req.body;
 
-            if(email, senha){
+            if(email && senha){
                 let usuario = await this.#repo.obterPorEmailSenha(email, senha);
 
                 if(usuario){
                     let middleware = new AuthMiddleware();
                     let token = middleware.gerarJWT(usuario.id, usuario.nome, usuario.email);
-                    res.cokkie("Lupus-21", token, { httpOnly: true});
+                    res.cookie("Lupus-21", token, { httpOnly: true});
                     return res.status(200).json({token: token});
                 }
 
