@@ -35,14 +35,9 @@ export default function layoutadmin({ children }) {
                     </li>
 
                     <li className="nav-item">
-                        <Link className="nav-link" href="/admin/imoveis">
+                        <Link className="nav-link" href="#">
                             <i className="fas fa-home"></i>
-                            <span>Imóveis</span></Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" href="/admin/contratos">
-                            <i className="fas fa-file-contract"></i>
-                            <span>Contratos</span></Link>
+                            <span>Salas</span></Link>
                     </li>
 
                 </ul>
