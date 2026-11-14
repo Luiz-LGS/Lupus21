@@ -3,6 +3,27 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
+-- Para banco novo. Se as tabelas ja existem, execute sql/adicionar-perfil.sql.
+
+-- -----------------------------------------------------
+-- Table `tb_perfil`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tb_perfil` (
+  `per_id` INT NOT NULL AUTO_INCREMENT,
+  `per_descricao` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`per_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+INSERT INTO `tb_perfil` (`per_id`, `per_descricao`)
+SELECT 1, 'Usuario'
+WHERE NOT EXISTS (SELECT 1 FROM `tb_perfil` WHERE `per_id` = 1);
+
+INSERT INTO `tb_perfil` (`per_id`, `per_descricao`)
+SELECT 2, 'Administrador'
+WHERE NOT EXISTS (SELECT 1 FROM `tb_perfil` WHERE `per_id` = 2);
+
 -- -----------------------------------------------------
 -- Table `tb_usuario`
 -- -----------------------------------------------------
@@ -11,7 +32,12 @@ CREATE TABLE IF NOT EXISTS `tb_usuario` (
   `usu_nome` VARCHAR(100) NULL DEFAULT NULL,
   `usu_email` VARCHAR(100) NULL DEFAULT NULL,
   `usu_senha` VARCHAR(200) NULL DEFAULT NULL,
-  PRIMARY KEY (`usu_id`))
+  `per_id` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`usu_id`),
+  INDEX `fk_usuario_perfil_idx` (`per_id`),
+  CONSTRAINT `fk_usuario_perfil`
+    FOREIGN KEY (`per_id`)
+    REFERENCES `tb_perfil` (`per_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
