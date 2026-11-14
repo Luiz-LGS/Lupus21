@@ -47,6 +47,10 @@ export default class UsuarioEntity extends Entity{
         this.#senha = senha;
     }
 
+    toJSON() {
+        return { id: this.id, nome: this.nome, email: this.email };
+    }
+
     static toMap(row){
         return new UsuarioEntity(row["usu_id"],
             row["usu_nome"],

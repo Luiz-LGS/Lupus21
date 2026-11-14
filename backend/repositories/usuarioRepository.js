@@ -1,5 +1,6 @@
 import UsuarioEntity from "../entities/usuarioEntity.js";
 import Database from "../utils/database.js";
+import { conferirSenha, gerarHash } from '../utils/senha.js';
 
 export default class UsuarioRepository {
 
@@ -46,18 +47,21 @@ export default class UsuarioRepository {
 
     async obterPorEmailSenha(email, senha){
 
-        let sql = "select * from tb_usuario where usu_email = ? and usu_senha = ?";
-
-        let valores = [email, senha];
-
-        let rows = await this.#banco.ExecutaComando(sql, valores);
-
-        if(rows.length > 0){
-            return UsuarioEntity.toMap(rows[0]);
+        if (typeof email !== 'string' || typeof senha !== 'string' || senha.length > 200) return null;
+        let usuario = await this.obterPorEmail(email.trim().toLowerCase());
+        if (!usuario || !await conferirSenha(senha, usuario.senha)) return null;
+        if (!usuario.senha.startsWith('scrypt:')) {
+            let hash = await gerarHash(senha);
+            await this.#banco.ExecutaComandoNonQuery('update tb_usuario set usu_senha = ? where usu_id = ?', [hash, usuario.id]);
+            usuario.senha = hash;
         }
+        return usuario;
 
-        return null;
+    }
 
+    async obterPorEmail(email) {
+        let rows = await this.#banco.ExecutaComando('select * from tb_usuario where lower(usu_email) = ? limit 1', [email]);
+        return rows.length ? UsuarioEntity.toMap(rows[0]) : null;
     }
 
     async obterPorId(id){
